@@ -1,38 +1,23 @@
 # Student Performance Analytics and Prediction Using Machine Learning
 
+A machine learning project that explores student academic performance and predicts final mathematics grades using regression algorithms.
+
 ## Project Overview
 
-This project explores student academic performance using data analysis and machine learning techniques. It uses demographic, family, social, and academic-related information to predict students' final mathematics grades.
+The objective of this project is to analyse student performance data and develop machine learning models to predict students' final mathematics grades (`G3`) using demographic, family, social and academic features.
 
-Two regression algorithms, Linear Regression and Random Forest Regression, are implemented and evaluated to compare their predictive performance.
-
-## Objectives
-
-- Explore and analyse student performance data.
-- Identify patterns and relationships between student characteristics and final grades.
-- Apply data preprocessing techniques to prepare the dataset.
-- Train regression models to predict final mathematics grades.
-- Evaluate and compare model performance using regression metrics.
-- Identify features that contribute to the Random Forest model's predictions.
+Previous-period grades (`G1` and `G2`) were excluded from the input features to explore prediction without relying on earlier examination marks.
 
 ## Dataset
 
-**Source:** [UCI Student Performance Dataset](https://archive.ics.uci.edu/dataset/320/student+performance)
-
-The project uses the Mathematics subset (`student-mat.csv`).
-
-| Dataset detail | Value |
-|---|---:|
-| Total records | 395 |
-| Original columns | 33 |
-| Input features used | 30 |
-| Training records | 316 |
-| Testing records | 79 |
-| Target variable | G3 |
-
-The target variable `G3` represents the student's final mathematics grade, on a scale from 0 to 20.
-
-The previous-period grades `G1` and `G2` were excluded to explore prediction using other available student characteristics.
+- **Dataset:** UCI Student Performance Dataset
+- **Subset:** Mathematics (`student-mat.csv`)
+- **Total records:** 395 students
+- **Input features:** 30
+- **Target variable:** G3 (final mathematics grade)
+- **Training records:** 316
+- **Testing records:** 79
+- **Train-test split:** 80:20
 
 ## Technologies Used
 
@@ -46,96 +31,94 @@ The previous-period grades `G1` and `G2` were excluded to explore prediction usi
 
 ## Project Workflow
 
-1. **Data Collection:** Downloaded and loaded the Mathematics dataset.
-2. **Data Exploration:** Examined the dataset structure, descriptive statistics, and feature types.
-3. **Data Cleaning:** Checked for missing values and duplicate records.
-4. **Exploratory Data Analysis:** Visualised grade distributions, study time, absences, and numerical correlations.
-5. **Feature Selection:** Selected 30 input features and the final grade (`G3`) as the target.
-6. **Data Preprocessing:** Applied StandardScaler to numerical features and OneHotEncoder to categorical features.
-7. **Train-Test Split:** Divided the dataset into 80% training data and 20% testing data.
-8. **Model Training:** Trained Linear Regression and Random Forest Regression models.
-9. **Evaluation:** Compared the models using MAE, RMSE, and R².
-10. **Feature Importance:** Examined the most influential features in the Random Forest model.
+1. Dataset loading and inspection.
+2. Data cleaning and validation.
+3. Exploratory Data Analysis (EDA).
+4. Numerical and categorical feature identification.
+5. Feature preprocessing using StandardScaler and OneHotEncoder.
+6. Train-test splitting.
+7. Baseline model implementation.
+8. Linear Regression model training.
+9. Random Forest Regression model training.
+10. Model evaluation and comparison.
+11. Feature importance analysis.
 
 ## Machine Learning Models
 
-### 1. Linear Regression
+Three models were implemented and evaluated:
 
-A regression algorithm used to model relationships between input features and the target variable.
+1. Mean Baseline Model
+2. Linear Regression
+3. Random Forest Regression
 
-### 2. Random Forest Regression
+## Model Evaluation
 
-An ensemble learning algorithm that combines multiple decision trees to generate predictions.
+The models were evaluated using three regression metrics:
 
-The Random Forest model was configured with 200 estimators.
+- **MAE (Mean Absolute Error):** Measures the average absolute difference between actual and predicted grades.
+- **RMSE (Root Mean Squared Error):** Measures prediction error while penalising larger errors more heavily.
+- **R² Score:** Measures how much variation in the target variable is explained by the model.
 
-## Model Evaluation Results
+### Results
 
-The models were evaluated using the same test dataset.
+| Model | MAE | RMSE | R² Score |
+|---|---:|---:|---:|
+| Mean Baseline | 3.6459 | 4.5502 | -0.0097 |
+| Linear Regression | 3.3953 | 4.1957 | 0.1415 |
+| Random Forest | 2.9938 | 3.7508 | 0.3139 |
 
-| Evaluation Metric | Linear Regression | Random Forest |
-|---|---:|---:|
-| MAE | 3.3953 | **2.9938** |
-| RMSE | 4.1957 | **3.7508** |
-| R² Score | 0.1415 | **0.3139** |
+Random Forest achieved the best performance among the three models, with the lowest MAE and RMSE and the highest R² score.
 
-Random Forest performed better across all three evaluation metrics.
-
-Its R² score indicates that it explained approximately 31.4% of the variation in final grades in the test set.
+Its R² score of approximately 0.314 indicates that it explains around 31.4% of the variation in the test-set grades. The model's predictive performance is moderate and leaves room for improvement.
 
 ## Feature Importance
 
-The five highest feature-importance scores from the Random Forest model were:
+The five most important features identified by the Random Forest model were:
 
-| Feature | Importance |
-|---|---:|
-| Absences | 0.1896 |
-| Failures | 0.1445 |
-| Health | 0.0493 |
-| Going out | 0.0483 |
-| Age | 0.0372 |
+1. Absences
+2. Failures
+3. Health
+4. Going out
+5. Age
 
-These scores represent the model's predictive feature importance and should not be interpreted as evidence of causation.
+Feature importance represents predictive contribution within the trained model. It does not establish causal relationships.
 
-## Key Learnings
+## Visualisations
 
-Through this project, I gained practical experience with:
+The project includes visualisations such as:
 
-- Data exploration and statistical summaries.
-- Handling categorical and numerical features.
-- Feature selection.
-- Data preprocessing and encoding.
-- Training regression models.
-- Evaluating machine learning models.
-- Visualising model predictions.
-- Interpreting feature importance.
+- Final grade distribution.
+- Study time versus final grades.
+- Numerical feature correlation heatmap.
+- Absences versus final grades.
+- Actual versus predicted grades.
+- Random Forest feature importance.
+
+## Repository Contents
+
+- `Student_Performance_Analytics.ipynb` - Complete Jupyter notebook containing data exploration, preprocessing, model training, evaluation and visualisations.
+- `README.md` - Project documentation.
+- `requirements.txt` - Required Python libraries.
 
 ## Limitations
 
 - The dataset contains only 395 mathematics student records.
-- The data originates from two Portuguese schools and may not represent other student populations.
-- Previous-period grades were excluded from the prediction features.
+- The data was collected from two Portuguese schools, limiting generalisability.
+- Previous-period grades G1 and G2 were excluded.
 - The model demonstrates moderate predictive performance.
-- Feature importance does not establish causal relationships.
-
-The predictions should be treated as exploratory estimates, not definitive assessments of individual students.
+- Predictions should not be treated as definitive assessments of individual students.
 
 ## Future Improvements
 
-- Experiment with additional regression algorithms.
 - Perform hyperparameter tuning.
-- Compare models against a baseline predictor.
-- Explore alternative feature-selection techniques.
-- Develop an interactive application for student grade prediction.
+- Evaluate models using cross-validation.
+- Explore additional regression algorithms.
+- Develop an interactive student grade prediction interface.
 
 ## Author
 
-**Shreya K.**
+**Shreya K**
 
-B.Sc. Artificial Intelligence and Machine Learning Student
+GitHub: https://github.com/shreyakannappan4-pixel
 
-GitHub: [shreyakannappan4-pixel](https://github.com/shreyakannappan4-pixel)
-
----
-
-*This project was developed as a hands-on learning project to understand the end-to-end machine learning workflow, from data exploration to model evaluation.*
+Project Repository: https://github.com/shreyakannappan4-pixel/student-performance-ml-prediction
